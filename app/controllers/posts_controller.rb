@@ -8,11 +8,12 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+    @post = Post.find(params[:id]) 
+       if @post.update(post_params) # updateを行うさいに判定。なぜなら一度createされているためデータベースには存在しているので
+       redirect_to post_path(@post)
+       else
+       render :edit
+       end
   end
 
   private

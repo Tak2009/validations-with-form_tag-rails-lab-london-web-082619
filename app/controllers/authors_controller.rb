@@ -8,9 +8,12 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.create(author_params)
-
-    redirect_to author_path(@author)
+    @author = Author.new(author_params) # newを使う、createではダメ! databaseにセーブする際にvalidationgaが必要なため
+      if @author.save
+      redirect_to author_path(@author)
+      else
+      render :new
+      end
   end
 
   private
